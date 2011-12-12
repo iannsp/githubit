@@ -1,3 +1,4 @@
+#include <stdio.h>
 void hellogh()
 {
     printf("GitHubIt 0.1 by Ivo Nascimento\n");
