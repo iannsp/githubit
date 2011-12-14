@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ghtype.h"
+#include "ghstuff.h"
 void hellogh()
 {
     printf("GitHubIt 0.1 by Ivo Nascimento\n");
@@ -18,9 +19,9 @@ ghParam* ghcreateParam(int argc, char* argv[]){
     if ( (argc -1) % 2 ==0 ){
         for(i; i< argc; i+=2) {
             if (ghParam == NULL) {
-                ghParam = create_ghParam( *(argv+1), *(argv+2) );
+                ghParam = create_ghParam( *(argv+i), *(argv+i+1) );
             }else {
-//                ghParam->next = create_ghParam(*argv+1, *argv+2);
+                ghParam->next = create_ghParam( *(argv+1), *(argv+2) );
             }
         }
     }
@@ -32,6 +33,7 @@ ghParam* create_ghParam(char* name, char* value)
     if (newghParam != NULL){
         newghParam->name    = name;
         newghParam->value   = value;
+        newghParam->next    = NULL;
     }
     return newghParam;
 }
