@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
    cmdinput.area = argv[1];
    cmdinput.command = argv[2];
    cmdinput.param = ghcreateParam(argc, argv);
+   printf("\n:%s - %s\n",cmdinput.param->name,cmdinput.param->value);
   if (strcmp(cmdinput.area, "gist")==0) {
       printf("eh um gist\n");
  } else
