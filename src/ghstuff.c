@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include "ghtype.h"
 #include "ghstuff.h"
+#include "ghcurl.h"
+
+#include "ghgist.h"
+#include "ghissue.h"
+#include "ghrepo.h"
+#include "ghorg.h"
+#include <string.h>
+
 void hellogh()
 {
     printf("GitHubIt 0.1 by Ivo Nascimento\n");
@@ -15,25 +23,35 @@ void helphg()
 
 ghParam* ghcreateParam(int argc, char* argv[]){
     int i=3;//(0=cmd;1=type;2=command)
-    ghParam* ghParam = NULL;
+    ghParam *ghparam,*p = NULL;
     if ( (argc -1) % 2 ==0 ){
         for(i; i< argc; i+=2) {
-            if (ghParam == NULL) {
-                ghParam = create_ghParam( *(argv+i), *(argv+i+1) );
-            }else {
-                ghParam->next = create_ghParam( *(argv+1), *(argv+2) );
+            ghparam = create_ghParam( *(argv+i), *(argv+i+1) );
+            ghparam->next = p;
+            p = ghparam;
             }
         }
+    ghparam = p;
+    return ghparam;
+}
+char* getParamValue(ghParam *param, char *name)
+{
+    ghParam* p;
+    p = param;
+    while(p) {
+        if (strcmp(p->name, name)==0) {
+            return p->value;
+        }
+        p = p->next;
     }
-    return ghParam;
+    return NULL;
 }
 ghParam* create_ghParam(char* name, char* value)
 {
-    ghParam* newghParam = malloc(sizeof(name)+sizeof(value));
+    ghParam* newghParam = malloc(sizeof(name)+sizeof(value)+2);
     if (newghParam != NULL){
         newghParam->name    = name;
         newghParam->value   = value;
-        newghParam->next    = NULL;
     }
     return newghParam;
 }
