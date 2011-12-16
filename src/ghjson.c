@@ -14,7 +14,7 @@ void ghstringparse(ghout *out)
     out->json = root;
 }
 
-json_t* getJsonItens(ghout *out, char *nodename)
+json_t* getJsonItensbyName(ghout *out, char *nodename)
 {
     json_t *itens;
     json_error_t error;
@@ -24,4 +24,13 @@ json_t* getJsonItens(ghout *out, char *nodename)
         return NULL;
     }
     return itens;
+}
+
+json_t* getValueOf(json_t *json, char* name)
+{
+    json_t *item;
+    item = json;
+            item = json_object_get(item, name);
+            return item;
+            
 }
