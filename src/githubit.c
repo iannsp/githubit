@@ -13,23 +13,33 @@ int main(int argc, char* argv[])
     hellogh();
     if (argc == 1) {
         helphg();
-        exit(0);
+        exit(EXIT_FAILURE);
     }
    ghin cmdinput;
    cmdinput.area = argv[1];
-   cmdinput.command = argv[2];
+   cmdinput.command = (argc >=3 )?argv[2]:"help";
    cmdinput.param = ghcreateParam(argc, argv);
-   printf("\n:%s - %s\n",cmdinput.param->name,cmdinput.param->value);
+
   if (strcmp(cmdinput.area, "gist")==0) {
-      printf("eh um gist\n");
+      printf("em desenvolvimento.\n");
  } else
   if (strcmp(cmdinput.area, "issue")==0) {
       ghIssue(cmdinput);
- } else
+ }
+  else
   if (strcmp(cmdinput.area, "repository")==0 || strcmp(cmdinput.area, "repo")==0 ) {
-      printf("eh um repository\n");
+      printf("em desenvolvimento.\n");
  } else
   if (strcmp(cmdinput.area, "organization")==0 || strcmp(cmdinput.area, "org")==0 ) {
-      printf("eh um Organization\n");
+      printf("em desenvolvimento.\n");
  }
 }
+/*
+ghParam* p;
+p = cmdinput.param;
+while(p) {
+    printf("\n:%s - %s\n",p->name,p->value);
+    p = p->next;
+}
+
+*/
