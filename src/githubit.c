@@ -34,12 +34,3 @@ int main(int argc, char* argv[])
       printf("em desenvolvimento.\n");
  }
 }
-/*
-ghParam* p;
-p = cmdinput.param;
-while(p) {
-    printf("\n:%s - %s\n",p->name,p->value);
-    p = p->next;
-}
-
-*/
