@@ -1,4 +1,4 @@
-#include "curl/curl.h"
+size_t write_data( void *ptr, size_t size, size_t nmeb, void *stream);
 ghout ghExecute(int method, ghin info);
 ghout ghPost(ghin info);
 ghout ghHead(ghin info);
