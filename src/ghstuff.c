@@ -13,7 +13,7 @@
 void hellogh()
 {
     printf("GitHubIt 0.1 by Ivo Nascimento\n");
-    printf("\tCommand Line tool for gitHub.\n");
+    printf("\tCommand Line tool for gitHub.\n\n");
 }
 void helphg()
 {
