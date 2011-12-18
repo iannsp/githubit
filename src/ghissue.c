@@ -63,7 +63,7 @@ ghout   ghissue_list(ghin param)
         body        = json_string_value(getValueOf(item, "body"));
         id          = json_integer_value(getValueOf(item, "number"));
         state       = json_string_value(getValueOf(item, "state"));
-        printf("(%-4s)%4d- %s \n", state,id, title); 
+        printf("%4d-%-90s (%s)\n",id, title, state); 
     }
     return out;
 }
