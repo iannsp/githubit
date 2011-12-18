@@ -14,6 +14,10 @@ int    ghIssue(ghin param)
         ghissue_add(param);
     }
     else
+    if ( strcmp(param.command,"show")==0) {
+        ghissue_show(param);
+    }
+    else
     if ( strcmp(param.command,"list")==0) {
         ghissue_list(param);
     }
@@ -29,6 +33,42 @@ int    ghIssue(ghin param)
         ghissue_help();
     }
     return 1;
+}
+ghout   ghissue_show(ghin param)
+{
+    ghout out;
+    size_t i;
+    const char *title, *body, *state;
+    int id;
+    json_t *json;
+    json_t  *item;
+
+    char *user = getParamValue(param.param, "user");
+    char *repo = getParamValue(param.param, "repo");
+    char *issueid = getParamValue(param.param, "id");
+
+    if (!user | !repo | !issueid){
+        printf("Precisa informar o usuario(user), repositorio(repo) e o id da issue.\n");
+        ghissue_help();
+        exit(EXIT_FAILURE);
+    }
+    //https://api.github.com/repos/iannsp/BlueSeed/issues/16
+    param.url = malloc(sizeof(GHURL)+sizeof("/repos///issues/0000")+sizeof(user)+sizeof(repo)+3);
+    sprintf(param.url, "%srepos/%s/%s/issues/%s", GHURL,user,repo, issueid );
+    out = ghExecute(get, param);
+    ghstringparse(&out);
+        item = out.json;
+        if(!json_is_object(item))
+        {
+            printf("Problemas com os dados.\n");
+            exit(EXIT_FAILURE);
+        }
+        title       = json_string_value(getValueOf(item, "title"));
+        body        = json_string_value(getValueOf(item, "body"));
+        id          = json_integer_value(getValueOf(item, "number"));
+        state       = json_string_value(getValueOf(item, "state"));
+        printf("%4d-%-90s (%s)\n",id, title, state); 
+    return out;    
 }
 ghout   ghissue_list(ghin param)
 {
