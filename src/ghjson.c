@@ -5,12 +5,27 @@
 #include "ghstuff.h"
 #include <jansson.h>
 
+json_t* getValueOf(json_t *json, char* name)
+{
+    json_t *item;
+    item = json;
+            item = json_object_get(item, name);
+            return item;
+}
 void ghstringparse(ghout *out)
 {
-    json_t *root;
+    json_t *root, *message;
     json_error_t error;
     root = json_loads(out->content, 0, &error);
     out->json = malloc(sizeof(root));
+    if (!out->json) {
+        printf("ERROR in json Data:%s.\n",error.text);
+        exit(EXIT_FAILURE);
+    }
+    message = getValueOf(root, "message");
+    if (json_is_object(message)){
+        printf("message: %s\n", json_string_value(message));
+    }
     out->json = root;
 }
 
@@ -26,11 +41,3 @@ json_t* getJsonItensbyName(ghout *out, char *nodename)
     return itens;
 }
 
-json_t* getValueOf(json_t *json, char* name)
-{
-    json_t *item;
-    item = json;
-            item = json_object_get(item, name);
-            return item;
-            
-}
