@@ -19,6 +19,8 @@ void helphg()
 {
     printf("usage: githubit [ type ] [ command ] [ parameter ]\n");
     printf("type: [ help | gist | issue | organization | repository ]\n");
+    printf("\tgithubit help\tshow this message\n");
+    printf("\tgithubit issue\tlist, show detail, create and update issues\n");
 }
 
 ghParam* ghcreateParam(int argc, char* argv[]){
