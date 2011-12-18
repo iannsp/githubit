@@ -27,7 +27,7 @@ ghout ghExecute(int method, ghin info)
     ghout out;
     webpage.contents = malloc(1);
     webpage.size = 1;
-
+    printf("Buscando Dados...\nURI: %s\n", info.url);
     CURL *handle = curl_easy_init();
     curl_easy_setopt(handle,CURLOPT_URL, info.url);
     curl_easy_setopt(handle, CURLOPT_SSL_VERIFYPEER, 0L);
