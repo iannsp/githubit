@@ -38,7 +38,7 @@ ghout   ghissue_show(ghin param)
 {
     ghout out;
     size_t i;
-    const char *title, *body, *state;
+    const char *title, *body, *state, *milestone, *createdate,*html;
     int id;
     json_t *json;
     json_t  *item;
@@ -67,7 +67,11 @@ ghout   ghissue_show(ghin param)
         body        = json_string_value(getValueOf(item, "body"));
         id          = json_integer_value(getValueOf(item, "number"));
         state       = json_string_value(getValueOf(item, "state"));
-        printf("%4d-%-90s (%s)\n",id, title, state); 
+        html        = json_string_value(getValueOf(item, "html_url"));
+        milestone   = (json_is_null(getValueOf(item, "milestone"))==1)?"-":json_string_value(getValueOf(item, "milestone"));
+        createdate  = json_string_value(getValueOf(item, "created_at"));
+        printf("%4d-%-90s\n     url: %s\n     status: %s\n     created at: %s\n     milestone: %s\n     content: %s\n",
+        id, title, html, state, createdate,milestone, body); 
     return out;    
 }
 ghout   ghissue_list(ghin param)
